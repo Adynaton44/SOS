@@ -2,16 +2,12 @@
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class PersonaDialog extends JDialog implements ActionListener {
 	public JLabel l1,l2,l3,l4;
@@ -64,7 +60,7 @@ public void actionPerformed(ActionEvent e) {
 	if(e.getSource().equals(chiudi)) {
 		dispose();
 	}
-
+	
 	if(e.getSource().equals(salva)) {
 			p=new Persona(t1.getText(),t2.getText(),t3.getText(),t4.getText());
 		}		
