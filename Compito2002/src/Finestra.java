@@ -17,6 +17,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -35,35 +36,38 @@ public class Finestra extends JFrame implements ActionListener, MouseListener, S
 	private PersonaDialog pd;
 	private ElencoPersone elenco;
 	private ImageIcon icon;
+	private JScrollPane jsp;
 	
 	public Finestra() {
 		initMenu();
-		initComponent();
 	}
 	
 	public void initMenu() {
+		this.setLayout(new BorderLayout());
 		barra = new JMenuBar();
 		menu = new JMenu("FILE");
 		nuovo = new JMenuItem("Nuovo");
 		nuovo.addActionListener(this);
-		salva = new JMenuItem("salva");
+		salva = new JMenuItem("Salva");
 		salva.addActionListener(this);
 		menu.add(nuovo);
 		menu.add(salva);
 		barra.add(menu);
-		this.add(barra);
-	}
-	
-	public void initComponent() {
+		this.setJMenuBar(barra);
+		
 		elenco = new ElencoPersone();
-		dtm= new DefaultTableModel(new String[] {"COGNOME", "NOME"}, 0);
+		dtm= new DefaultTableModel(new String[] {"COGNOME", "NOME","CLASSE"}, 0);
 		table = new JTable(dtm);
 		table.addMouseListener(this);
+		jsp = new JScrollPane(table);
 		pannello = new JPanel();
 		pannello.setLayout(new BorderLayout());	
 		foto = new JLabel();
-		pannello.add(foto, BorderLayout.CENTER);
-		}
+		pannello.add(foto, BorderLayout.SOUTH);
+		pannello.add(jsp, BorderLayout.NORTH);
+		this.add(pannello);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -72,7 +76,7 @@ public class Finestra extends JFrame implements ActionListener, MouseListener, S
 			pd.setVisible(true); 
 			if(pd.getRisultato()!=null) {
 				elenco.add(pd.getRisultato());
-				dtm.addRow(new String[] {pd.getRisultato().getCognome(),pd.getRisultato().getNome()});	
+				dtm.addRow(new String[] {pd.getRisultato().getCognome(),pd.getRisultato().getNome(),pd.getRisultato().getClasse()});	
 			}
 		}
 		
@@ -80,8 +84,8 @@ public class Finestra extends JFrame implements ActionListener, MouseListener, S
 			JFileChooser chooser = new JFileChooser();
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("File di testo", "csv");
 			chooser.setFileFilter(filter);
-			int retVal = chooser.showSaveDialog(this);
-			if(retVal == chooser.APPROVE_OPTION) {
+			int val = chooser.showSaveDialog(this);
+			if(val == chooser.APPROVE_OPTION) {
 				File f = chooser.getSelectedFile();
 			    try {
 					f.createNewFile();
@@ -132,7 +136,7 @@ public class Finestra extends JFrame implements ActionListener, MouseListener, S
 	public static void main(String args[]) {
 		Finestra f = new Finestra();
 		f.setVisible(true);
-		f.setsize(600,800);
+		f.setSize(600,800);
 	}
 
 	@Override
