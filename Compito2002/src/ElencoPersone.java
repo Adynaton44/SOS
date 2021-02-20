@@ -19,7 +19,7 @@ public class ElencoPersone extends ArrayList<Persona> {
 	public ArrayList<String> elencoStringhe(){
 		ArrayList<String> l=new ArrayList<String>();
 		for(int i=0;i<this.size();i++) {
-			l.add(this.get(i).toString());
+			l.add(this.get(i).toString());//non ho capito
 		}
 		return l;
 	}

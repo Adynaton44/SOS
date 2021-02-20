@@ -42,4 +42,7 @@ public class Persona {
 		this.path = path;
 	}
 	
+	public String toString() {
+		return cognome+","+nome;
+	}
 }

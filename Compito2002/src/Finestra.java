@@ -17,8 +17,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -28,8 +26,7 @@ public class Finestra extends JFrame implements ActionListener, MouseListener, S
 
 	private JMenuBar barra;
 	private JMenu menu;
-	private JMenuItem nuovo,salva, serializza,deserializza;
-	private JScrollPane scroll;
+	private JMenuItem nuovo,salva;
 	private JPanel pannello;
 	private JTable table;
 	private DefaultTableModel dtm;
@@ -62,7 +59,6 @@ public class Finestra extends JFrame implements ActionListener, MouseListener, S
 		dtm= new DefaultTableModel(new String[] {"COGNOME", "NOME"}, 0);
 		table = new JTable(dtm);
 		table.addMouseListener(this);
-		scroll = new JScrollPane(table);
 		pannello = new JPanel();
 		pannello.setLayout(new BorderLayout());	
 		foto = new JLabel();
@@ -74,8 +70,10 @@ public class Finestra extends JFrame implements ActionListener, MouseListener, S
 		if(e.getSource().equals(nuovo)) {
 			pd = new PersonaDialog(this, true);
 			pd.setVisible(true); 
-			elenco.add(pd.getRisultato());
-			dtm.addRow(new String[] {pd.getRisultato().getCognome(),pd.getRisultato().getNome()});	
+			if(pd.getRisultato()!=null) {
+				elenco.add(pd.getRisultato());
+				dtm.addRow(new String[] {pd.getRisultato().getCognome(),pd.getRisultato().getNome()});	
+			}
 		}
 		
 		if(e.getSource().equals(salva)) {
@@ -107,7 +105,7 @@ public class Finestra extends JFrame implements ActionListener, MouseListener, S
 			}
 		}	
 	}
-	
+	//da spostare
 	public void convertCsv(File f, ArrayList<String> a){
 		FileWriter fw = null;
 		try {
@@ -130,9 +128,11 @@ public class Finestra extends JFrame implements ActionListener, MouseListener, S
 			}
 		}
 	}
+	
 	public static void main(String args[]) {
 		Finestra f = new Finestra();
 		f.setVisible(true);
+		f.setsize(600,800);
 	}
 
 	@Override

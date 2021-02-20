@@ -49,13 +49,12 @@ public void  initComponents() {
 		this.add(chiudi);
 }
 
-public Persona getRisultato() {
-	return p;
-}
+	public Persona getRisultato() {
+		return p;
+	}
 
 @Override
 public void actionPerformed(ActionEvent e) {
-	
 	
 	if(e.getSource().equals(chiudi)) {
 		dispose();
